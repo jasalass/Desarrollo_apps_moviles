@@ -1,0 +1,47 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="ion-padding">
+    <form #registerForm="ngForm" (ngSubmit)="onRegister()" novalidate>
+
+      <!-- Campo de correo electrónico con validación -->
+      <ion-item>
+        <ion-label position="floating">Correo</ion-label>
+        <ion-input [(ngModel)]="email" name="email" type="email" required></ion-input>
+      </ion-item>
+      <div *ngIf="registerForm.submitted && registerForm.controls[email]?.valid === false" class="error-message">
+        El correo es obligatorio
+      </div>
+
+      <!-- Campo de contraseña con validación -->
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
+      </ion-item>
+      <div *ngIf="registerForm.submitted && registerForm.controls[password]?.valid === false" class="error-message">
+        La contraseña es obligatoria
+      </div>
+
+      <!-- Checkbox Cuidador -->
+      <ion-item>
+        <ion-label>Cuidador</ion-label>
+        <ion-checkbox [(ngModel)]="isCuidador" name="isCuidador"></ion-checkbox>
+      </ion-item>
+
+      <!-- Checkbox Dueño de Mascota -->
+      <ion-item>
+        <ion-label>Dueño de mascota</ion-label>
+        <ion-checkbox [(ngModel)]="isDueno" name="isDueno"></ion-checkbox>
+      </ion-item>
+      <div *ngIf="registerForm.submitted && !isCheckboxValid()" class="error-message">
+        Debes seleccionar al menos una opción (Cuidador o Dueño de Mascota).
+      </div>
+
+      <ion-button expand="block" type="submit" [disabled]="!registerForm.form?.valid || !isCheckboxValid()">Registrar</ion-button>
+    </form>
+  </div>
+</ion-content>
