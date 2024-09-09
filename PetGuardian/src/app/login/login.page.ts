@@ -57,7 +57,14 @@ export class LoginPage implements OnInit {
           return;
         } 
       }else if(!error){
-        this.supabaseService.userRole(data);
+        const usuario = await this.supabaseService.userRole(data);
+        if(usuario.cuidador){ //Comprobar si el usuario es cuidador y redirigir a su home
+          this.router.navigate(['/home-cuidador'])
+          
+        }else if(usuario.dueno){ // Comprobar si el usuario es cuidador y redirigir a su home
+          this.router.navigate(['/home-dueno'])
+          
+        }
       }
 
     } catch (error) {

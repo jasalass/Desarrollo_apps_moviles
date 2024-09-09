@@ -1,15 +1,10 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-
+import { guard } from './guards/guard.guard'
 const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
   },
   {
     path: 'login',
@@ -21,12 +16,19 @@ const routes: Routes = [
   },
   {
     path: 'home-dueno',
-    loadChildren: () => import('./home-dueno/home-dueno.module').then( m => m.HomeDuenoPageModule)
+    loadChildren: () => import('./home-dueno/home-dueno.module').then( m => m.HomeDuenoPageModule),
+    canActivate: [guard] //Ruta protegida por guard
   },
   {
     path: 'home-cuidador',
-    loadChildren: () => import('./home-cuidador/home-cuidador.module').then( m => m.HomeCuidadorPageModule)
+    loadChildren: () => import('./home-cuidador/home-cuidador.module').then( m => m.HomeCuidadorPageModule),
+    canActivate: [guard] ////Ruta protegida por guard
   },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

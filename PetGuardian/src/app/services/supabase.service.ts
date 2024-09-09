@@ -50,7 +50,24 @@ export class SupabaseService {
       email,
       password,
     });
-    
+
+    if (data.session) {
+      // Extrae el token de acceso y refresh token de la sesión
+      const session = data.session
+      const accessToken = session.access_token;
+      const refreshToken = session.refresh_token;
+      const expiresAt = session.expires_at;
+      const userData = session.user;
+
+      if(expiresAt){
+        localStorage.setItem('expires_at', expiresAt.toString());  // Convertir a string
+      }
+      // Guarda el token y los datos de la sesión en localStorage
+      localStorage.setItem('access_token', accessToken);
+      localStorage.setItem('refresh_token', refreshToken);     
+      localStorage.setItem('user', JSON.stringify(userData));  // Guarda el objeto user como string
+    }
+
     return { data, error };
   }
 
@@ -59,9 +76,8 @@ async userRole(datauser:any){
   try {
     const {data, error} = await this.supabase.from('user_roles').select('*').eq('user_id', datauser.user.id)
     if(data && data.length > 0){
-      console.log(data[0])
-    }
-    
+      return data[0]
+    }  
   } catch (error) {
     console.log(error)
   }
