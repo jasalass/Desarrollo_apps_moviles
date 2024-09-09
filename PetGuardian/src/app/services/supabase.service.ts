@@ -63,7 +63,7 @@ export class SupabaseService {
         localStorage.setItem('expires_at', expiresAt.toString());  // Convertir a string
       }
       // Guarda el token y los datos de la sesión en localStorage
-      localStorage.setItem('access_token', accessToken);
+      localStorage.setItem('access_token_petguard', accessToken);
       localStorage.setItem('refresh_token', refreshToken);     
       localStorage.setItem('user', JSON.stringify(userData));  // Guarda el objeto user como string
     }
