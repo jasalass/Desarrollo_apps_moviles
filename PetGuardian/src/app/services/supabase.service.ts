@@ -72,16 +72,22 @@ export class SupabaseService {
   }
 
   //Método para buscar el perfil del usuario
-async userRole(datauser:any){
-  try {
-    const {data, error} = await this.supabase.from('user_roles').select('*').eq('user_id', datauser.user.id)
-    if(data && data.length > 0){
-      return data[0]
-    }  
-  } catch (error) {
-    console.log(error)
+  async userRole(datauser: any) {
+    try {
+      const { data, error } = await this.supabase
+        .from('user_roles')
+        .select('*')
+        .eq('user_id', datauser.user.id);
+  
+      if (data && data.length > 0) {
+        //Guardar el objeto en localstorage
+        localStorage.setItem('userRole', JSON.stringify(data[0]));        
+        return data[0];
+      }  
+    } catch (error) {
+      console.log(error);
+    }
   }
-}
 
   
 }

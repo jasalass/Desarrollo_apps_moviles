@@ -10,4 +10,14 @@
       <ion-title size="large">home dueño</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <div id="container">
+    <p>En desarrollo</p> 
+    <h2>Información del Usuario</h2>
+    
+    <p><strong>Nombre:</strong> {{ usuario?.pnombre }} {{ usuario?.apellido }}</p>
+    <p><strong>Rol de Cuidador:</strong> {{ usuario?.cuidador ? 'Sí' : 'No' }}</p>
+    <p><strong>Rol de Dueño de Mascota:</strong> {{ usuario?.dueno ? 'Sí' : 'No' }}</p>
+
+  </div>
 </ion-content>

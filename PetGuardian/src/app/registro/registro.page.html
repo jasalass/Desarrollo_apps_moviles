@@ -22,7 +22,7 @@
         <ion-label position="floating">Contraseña</ion-label>
         <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
       </ion-item>
-      <div *ngIf="registerForm.submitted && registerForm.controls[password]?.valid === false" class="error-message">
+      <div *ngIf="registerForm.submitted && registerForm.controls[password].valid === false" class="error-message">
         La contraseña es obligatoria
       </div>
 
@@ -41,7 +41,7 @@
         Debes seleccionar al menos una opción (Cuidador o Dueño de Mascota).
       </div>
 
-      <ion-button expand="block" type="submit" [disabled]="!registerForm.form?.valid || !isCheckboxValid()">Registrar</ion-button>
+      <ion-button expand="block" type="submit" [disabled]="!registerForm.form.valid || !isCheckboxValid()">Registrar</ion-button>
     </form>
   </div>
 </ion-content>

@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Inicio App
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,10 +13,38 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Inicio app</strong>
-    <p>Primera entrega modulo de login</p> 
-    <ion-button [routerLink]="['/login']">Login</ion-button> 
+  <div class="ion-padding">
+    <p>
+      La aplicación tiene como objetivo conectar a dueños de mascotas con cuidadores.
+      Los dueños pueden buscar servicios de cuidado de mascotas, como paseos y alimentación, mientras que los cuidadores 
+      pueden ofrecer estos servicios, detallando su disponibilidad y tarifas.
+    </p>
   </div>
-  
+
+  <div class="ion-padding">
+    <h2>Características implementadas</h2>
+    <ion-list>
+      <ion-item>
+        <ion-label>Login de usuarios</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Registro de usuarios</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Páginas personalizadas según perfil (Cuidador/Dueño de Mascota)</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Guards para proteger el acceso a páginas específicas</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Autenticación con Supabase</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+  <ion-footer>
+    <ion-toolbar>
+      <ion-button expand="block" [routerLink]="['/login']">Login</ion-button>
+    </ion-toolbar>
+  </ion-footer>
+
 </ion-content>

@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeCuidadorPage implements OnInit {
 
+  usuario: any = null
+
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() {  
+    this.usuario = JSON.parse(localStorage.getItem('userRole') || '{}');
+    
   }
+
+  
 
 }
