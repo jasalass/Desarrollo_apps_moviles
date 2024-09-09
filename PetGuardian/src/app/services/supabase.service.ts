@@ -50,6 +50,22 @@ export class SupabaseService {
       email,
       password,
     });
+    
     return { data, error };
   }
+
+  //Método para buscar el perfil del usuario
+async userRole(datauser:any){
+  try {
+    const {data, error} = await this.supabase.from('user_roles').select('*').eq('user_id', datauser.user.id)
+    if(data && data.length > 0){
+      console.log(data[0])
+    }
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+  
 }

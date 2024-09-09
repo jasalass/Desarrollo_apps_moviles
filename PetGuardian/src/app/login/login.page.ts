@@ -57,7 +57,7 @@ export class LoginPage implements OnInit {
           return;
         } 
       }else if(!error){
-        console.log(data)
+        this.supabaseService.userRole(data);
       }
 
     } catch (error) {
