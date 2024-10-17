@@ -1,5 +1,5 @@
 {
-  "name": "PetGuardian",
+  "name": "petguardian",
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
@@ -27,11 +27,9 @@
     "@capacitor/keyboard": "6.0.2",
     "@capacitor/status-bar": "6.0.1",
     "@ionic/angular": "^8.0.0",
-    "@supabase/supabase-js": "^2.45.3",
     "ionicons": "^7.0.0",
     "rxjs": "~7.8.0",
-    "supabase": "^1.191.3",
-    "tslib": "^2.7.0",
+    "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
   },
   "devDependencies": {
@@ -46,7 +44,6 @@
     "@angular/language-service": "^18.0.0",
     "@capacitor/cli": "6.1.2",
     "@ionic/angular-toolkit": "^11.0.1",
-    "@types/bonjour": "^3.5.13",
     "@types/jasmine": "~5.1.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
@@ -61,7 +58,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "^5.5.4"
+    "typescript": "~5.4.0"
   },
   "description": "An Ionic project"
 }

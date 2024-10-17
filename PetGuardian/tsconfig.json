@@ -1,12 +1,8 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./src",
-    "paths": {
-      "@services/*": ["app/services/*"],
-      "@models/*": ["app/models/*"],
-      "@components/*": ["app/components/*"]
-      
-    },
+    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -23,7 +19,7 @@
     "target": "es2022",
     "module": "es2020",
     "lib": [
-      "es2018",
+      "es2018", 
       "dom"
     ],
     "useDefineForClassFields": false
@@ -33,9 +29,5 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  },
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  }
 }
