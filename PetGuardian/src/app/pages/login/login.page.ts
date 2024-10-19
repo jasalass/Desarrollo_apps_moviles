@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { ServicioLoginService } from 'src/app/services/login/servicio-login.service';
+import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { CredencialesModalComponent } from '../../modals/modal-login/credenciales-modal/credenciales-modal.component';
+
 
 @Component({
   selector: 'app-login',
@@ -6,15 +11,34 @@ import { Component } from '@angular/core';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-  // Definir las propiedades para email y password
-  email: string = '';
-  password: string = '';
+  credentials = {
+    email: '',
+    password: ''
+  };
 
-  constructor() {}
+  constructor(
+    private servicioLogin: ServicioLoginService,
+    private router: Router,
+    private modalController: ModalController
+  ) {}
 
-  // Método login que se activará cuando el formulario se envíe
+  // Método para realizar el login
   login() {
-    console.log('Iniciar sesión con:', this.email, this.password);
-    // Aquí puedes añadir la lógica de autenticación
+    this.servicioLogin.login(this.credentials).subscribe(
+      (response) => {
+        console.log('Login success:', response);
+        this.servicioLogin.saveLoginData(response);  // Guarda los datos del login
+        this.router.navigate(['/home']);  // Redirige al home
+      },
+      async (error) => {
+        console.error('Login error:', error);
+        // Muestra un modal en caso de error
+        const modal = await this.modalController.create({
+          component: CredencialesModalComponent,
+          cssClass: 'credenciales-invalidas-modal',
+        });
+        return await modal.present();
+      }
+    );
   }
 }

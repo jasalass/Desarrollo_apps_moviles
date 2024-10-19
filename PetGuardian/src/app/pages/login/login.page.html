@@ -4,16 +4,52 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <form (ngSubmit)="login()">
-    <ion-item>
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" [(ngModel)]="email" name="email" required></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Contraseña</ion-label>
-      <ion-input type="password" [(ngModel)]="password" name="password" required></ion-input>
-    </ion-item>
-    <ion-button expand="full" type="submit">Login</ion-button>
-  </form>
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-md="6" size-sm="12" size-xs="12">
+        
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Iniciar Sesión</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <!-- Formulario de Login -->
+            <form (ngSubmit)="login()">
+              
+              <ion-item>
+                <ion-label position="floating">Email</ion-label>
+                <ion-input 
+                  type="email" 
+                  [(ngModel)]="credentials.email" 
+                  name="email" 
+                  required>
+                </ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="floating">Contraseña</ion-label>
+                <ion-input 
+                  type="password" 
+                  [(ngModel)]="credentials.password" 
+                  name="password" 
+                  required>
+                </ion-input>
+              </ion-item>
+
+              <ion-button 
+                expand="block" 
+                type="submit" 
+                class="ion-margin-top">
+                Iniciar Sesión
+              </ion-button>
+
+            </form>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

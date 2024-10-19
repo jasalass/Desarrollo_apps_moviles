@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';  // Asegúrate de que esto esté presente
 
 import { RegistroPageRoutingModule } from './registro-routing.module';
-
 import { RegistroPage } from './registro.page';
+import { RegistroErrorModalComponent } from '../../modals/registro-error-modal/registro-error-modal.component';  // Importa el modal
 
 @NgModule({
   imports: [
@@ -14,8 +13,7 @@ import { RegistroPage } from './registro.page';
     FormsModule,
     IonicModule,
     RegistroPageRoutingModule,
-    HttpClientModule
   ],
-  declarations: [RegistroPage]
+  declarations: [RegistroPage, RegistroErrorModalComponent]
 })
 export class RegistroPageModule {}
