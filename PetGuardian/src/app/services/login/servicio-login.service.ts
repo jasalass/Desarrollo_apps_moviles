@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Storage } from '@ionic/storage-angular';  // Importa Ionic Storage
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,9 @@ export class ServicioLoginService {
     })
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private storage: Storage) {
+    this.storage.create();  // Inicializa Ionic Storage
+  }
 
   // Método para hacer login
   login(credentials: { email: string; password: string }): Observable<any> {
@@ -25,27 +28,60 @@ export class ServicioLoginService {
     return this.http.post(url, credentials, this.httpOptions);
   }
 
-  // Método para guardar datos relevantes después del login
-  saveLoginData(response: any): void {
-    // Almacena el token JWT y otros datos relevantes
-    localStorage.setItem('accessToken', response.access_token);  // Guarda el token
-    localStorage.setItem('userId', response.user.id);  // Guarda el ID del usuario
-    localStorage.setItem('userRole', response.user.role);  // Guarda el rol del usuario (si existe)
+  async saveLoginData(response: any): Promise<void> {
+    const userId = response.user.id;
+    await this.storage.set('accessToken', response.access_token);
+    await this.storage.set('userId', userId);
+  
+    // Espera hasta que se guarden todos los datos antes de resolver la promesa
+    return new Promise((resolve, reject) => {
+      this.http.get(`${this.supabaseUrl}/rest/v1/user_roles?user_id=eq.${userId}`, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'apikey': this.supabaseKey,
+          'Authorization': `Bearer ${response.access_token}`
+        })
+      }).subscribe(
+        async (userRolesResponse: any) => {
+          if (userRolesResponse && userRolesResponse.length > 0) {
+            const userRoles = userRolesResponse[0];
+            await this.storage.set('userRole', userRoles.role || '');
+            await this.storage.set('nombre', userRoles.pnombre || '');
+            await this.storage.set('apellido', userRoles.apellido || '');
+            await this.storage.set('cuidador', userRoles.cuidador !== undefined ? userRoles.cuidador.toString() : 'false');
+            await this.storage.set('dueno', userRoles.dueno !== undefined ? userRoles.dueno.toString() : 'false');
+            resolve();  // Resuelve la promesa una vez que los datos están guardados
+          } else {
+            reject('No se encontraron datos en la tabla user_roles');
+          }
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+  
+
+
+  async getUserData(): Promise<any> {
+    const accessToken = await this.storage.get('accessToken');
+    const userId = await this.storage.get('userId');
+    const userRole = await this.storage.get('userRole');
+    const nombre = await this.storage.get('nombre');
+    const apellido = await this.storage.get('apellido');
+    const cuidador = await this.storage.get('cuidador');
+    const dueno = await this.storage.get('dueno');
+    
+
+    return { accessToken, userId, userRole, nombre, apellido, cuidador, dueno };
   }
 
-  // Método para obtener los datos del usuario guardados
-  getUserData(): any {
-    return {
-      accessToken: localStorage.getItem('accessToken'),
-      userId: localStorage.getItem('userId'),
-      userRole: localStorage.getItem('userRole')
-    };
-  }
 
-  // Método para cerrar sesión
-  logout(): void {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('userRole');
+
+
+  // Método para cerrar sesión y limpiar los datos en Ionic Storage
+  async logout(): Promise<void> {
+    await this.storage.clear();  // Limpia todos los datos almacenados
   }
 }

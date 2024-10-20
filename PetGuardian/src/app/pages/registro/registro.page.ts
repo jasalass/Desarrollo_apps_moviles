@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ServicioRegistroService } from 'src/app/services/registro/servicio-registro.service';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
-import { RegistroErrorModalComponent } from '../../modals/registro-error-modal/registro-error-modal.component';  // El nuevo modal
+import { RegistroErrorModalComponent } from '../../modals/registro-error-modal/registro-error-modal.component';  
 
 @Component({
   selector: 'app-registro',
